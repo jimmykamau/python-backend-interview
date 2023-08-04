@@ -1,0 +1,19 @@
+name: Tests
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Build the stack
+              run: docker compose build
+            - name: Power up the stack
+              run: docker compose up -d
+            - name: Run tests
+              run: docker compose exec web python manage.py test
