@@ -9,11 +9,14 @@ on:
 jobs:
     test:
         runs-on: ubuntu-latest
+        env:
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            SECRET_KEY: ${{ secrets.SECRET_KEY }}
         steps:
             - uses: actions/checkout@v2
             - name: Build the stack
-              run: docker compose build
+              run: docker compose -f docker-compose.actions.yml build
             - name: Power up the stack
               run: docker compose up -d
             - name: Run tests
-              run: docker compose exec web python manage.py test
+              run: docker compose -f docker-compose.actions.yml exec web python manage.py test
