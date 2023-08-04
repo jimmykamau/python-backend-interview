@@ -81,7 +81,7 @@ WSGI_APPLICATION = "amitruck.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default="mysql://amitruck:amitruck@db:3306/amitruck",
+        default="mysql://:amitruck@db:3306/amitruck",
         conn_max_age=600,
         conn_health_checks=True,
     )
