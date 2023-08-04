@@ -17,6 +17,6 @@ jobs:
             - name: Build the stack
               run: docker compose -f docker-compose.actions.yml build
             - name: Power up the stack
-              run: docker compose up -d
+              run: docker compose -f docker-compose.actions.yml up -d
             - name: Run tests
               run: docker compose -f docker-compose.actions.yml exec web python manage.py test
