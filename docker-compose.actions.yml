@@ -4,6 +4,8 @@ services:
     build:
       context: ./amitruck
       dockerfile: dockerfile.ci
+    ports:
+      - "5321:5321"
     depends_on:
       - db
     networks:
