@@ -22,8 +22,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=amitruck
       - MYSQL_DATABASE=amitruck
-      - MYSQL_USER=amitruck
-      - MYSQL_PASSWORD=amitruck
     volumes:
       - mysql_data:/var/lib/mysql
     networks:
