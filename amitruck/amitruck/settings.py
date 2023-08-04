@@ -81,7 +81,7 @@ WSGI_APPLICATION = "amitruck.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default="mysql://amitruck:amitruck@db:3306/amitruck",
+        default="mysql://:amitruck@db:3306/amitruck",
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -132,5 +132,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "api.models.CustomAuthToken",
-    ]
+    ],
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {"anon": "4/second", "user": "4/second"},
 }
