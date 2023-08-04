@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ./amitruck
+      dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./amitruck:/app
+    env_file:
+      - amitruck/.env
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=amitruck
+      - MYSQL_DATABASE=amitruck
+      - MYSQL_USER=amitruck
+      - MYSQL_PASSWORD=amitruck
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  mysql_data:
+
+networks:
+  backend:
