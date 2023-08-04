@@ -18,6 +18,8 @@ jobs:
               run: docker compose -f docker-compose.actions.yml up -d
             - name: Wait for containers to power up
               run: sleep 10s
+            - name: View web logs
+              run: docker compose logs
             - name: Check running containers
               run: docker ps -a
             - name: Run tests
