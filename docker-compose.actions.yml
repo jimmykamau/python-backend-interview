@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ./amitruck
+      dockerfile: dockerfile.ci
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+    ports:
+      - "5321:5321"
+    depends_on:
+      - db
+    networks:
+      - backend
+
+  db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=amitruck
+      - MYSQL_DATABASE=amitruck
+    networks:
+      - backend
+
+networks:
+  backend:
