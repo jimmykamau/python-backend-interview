@@ -1,0 +1,22 @@
+name: Tests
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        env:
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        steps:
+            - uses: actions/checkout@v2
+            - name: Build the stack
+              run: docker compose -f docker-compose.actions.yml up -d
+            - name: Wait for containers to power up
+              run: sleep 10s
+            - name: Run tests
+              run: docker compose -f docker-compose.actions.yml exec web python manage.py test
